@@ -11,17 +11,16 @@ let lengthDots = slideDot.length;
 
 
 let numberSlide = 0;
+slideDot[0].className = "slider__dot slider__dot_active";  // чтоб точка была  изначально
 
 function clickSlide(n) {
+    let curentSlideIndex = slides.findIndex(itemSlide => (itemSlide.className == "slider__item slider__item_active"));
+    let curentDoteIndex = slideDot.findIndex(item => (item.className == "slider__dot slider__dot_active"));
+    
+    slides[curentSlideIndex].className = "slider__item";
+    slideDot[curentDoteIndex].className = "slider__dot";
+    
     numberSlide = (n + lengthSlides) % lengthSlides;
-
-    for (let slide of slides) {
-       slide.className = "slider__item";
-    };
-
-    for (let dote of slideDot) {
-        dote.className = "slider__dot";
-    };
 
     slides[numberSlide].className = "slider__item slider__item_active";
     slideDot[numberSlide].className = "slider__dot slider__dot_active";
