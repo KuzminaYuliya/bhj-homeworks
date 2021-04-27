@@ -12,52 +12,31 @@ let lengthDots = slideDot.length;
 
 let numberSlide = 0;
 
-function cleanDotAtributes() {
-    let activeDotes = Array.from(document.getElementsByClassName("slider__dot_active"));
-    activeDotes.forEach(item => item.className = "slider__dot");
-};
-
-function cleanSlideAtributes() {
-    let activeSlides = Array.from(document.getElementsByClassName("slider__item_active"));
-    activeSlides.forEach(item => item.className = "slider__item");
-};
-
 function clickSlide(n) {
-    cleanSlideAtributes();
-    slides[n].className = "slider__item slider__item_active";
+    numberSlide = (n + lengthSlides) % lengthSlides;
 
-    cleanDotAtributes();
-    slideDot[n].className = "slider__dot slider__dot_active";
-
-};
-    
-arrowsNext.onclick = function() {
-    if  (numberSlide >= (lengthSlides - 1)) {
-        numberSlide = 0;
-        clickSlide(numberSlide);
-    }
-    else {
-        numberSlide = numberSlide + 1;
-        clickSlide(numberSlide);
+    for (let slide of slides) {
+       slide.className = "slider__item";
     };
+
+    for (let dote of slideDot) {
+        dote.className = "slider__dot";
+    };
+
+    slides[numberSlide].className = "slider__item slider__item_active";
+    slideDot[numberSlide].className = "slider__dot slider__dot_active";
+};
+
+arrowsNext.onclick = function() {
+    clickSlide(numberSlide + 1);
 }; 
 
 arrowsPrev.onclick = function() {
-    if  (numberSlide === 0) {
-        numberSlide = lengthSlides - 1;
-        clickSlide(numberSlide);
-    }
-    else {
-        numberSlide = numberSlide - 1;
-        clickSlide(numberSlide);
-    };
-
+    clickSlide(numberSlide - 1);
 }; 
 
 for (let index = 0; index < lengthDots; index++) {
         slideDot[index].onclick = function() {
-            cleanDotAtributes();
-            slideDot[index].className = "slider__dot slider__dot_active";
             numberSlide = index;
             clickSlide(numberSlide);
     };
