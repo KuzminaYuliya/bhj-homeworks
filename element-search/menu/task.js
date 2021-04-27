@@ -11,15 +11,23 @@ function clickElement (item) {
 
     for (let index = 0; index < elementsLength; index++) {
        elementsMenu[index].onclick = function() {
-            let subMenu = Array.from(item.querySelectorAll(".menu_active"));
-            subMenu.forEach(item => item.className = "menu menu_sub");
-
+            
             let subMenuElements = this.closest(".menu__item").querySelector(".menu_sub");
-                 
-            if (subMenuElements !== null){
-                subMenuElements.className = "menu menu_sub menu_active";
+
+            if (subMenuElements.classList.contains("menu_active")) {
+                subMenuElements.className = "menu menu_sub";
                 return false;
-            };
+            }    
+            
+            else {
+                let subMenu = Array.from(item.querySelectorAll(".menu_active"));
+                subMenu.forEach(item => item.className = "menu menu_sub");
+               
+                if (subMenuElements !== null){
+                    subMenuElements.className = "menu menu_sub menu_active";
+                    return false;
+                };
+            }    
         };
     };
 };
