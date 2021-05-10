@@ -33,6 +33,11 @@ for (let i = 0; i < typeRadios.length; i++) {
             else if ((allChecked > 0) && (allChecked < (all - allIndeterminate))) {
                 item.querySelector("li .interest__check").indeterminate = true;
                 item.querySelector("li .interest__check").checked = false;
+            }
+            
+            else if (allChecked === 0) {
+                item.querySelector("li .interest__check").indeterminate = false;
+                item.querySelector("li .interest__check").checked = false;
             };
         };
     });
