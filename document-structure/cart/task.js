@@ -5,6 +5,7 @@ const cartProducts = document.querySelector(".cart__products");
 const cartMinus = Array.from(document.querySelectorAll(".product__quantity-control_dec"));
 const cartPlus = Array.from(document.querySelectorAll(".product__quantity-control_inc"));
 const cartAdd = Array.from(document.querySelectorAll(".product__add"));
+const recycle = document.getElementById('clear_cart');
 
 function getCart() {
     return JSON.parse(localStorage.getItem('cart'));
@@ -33,17 +34,18 @@ function drawCarts() {
   Array.from(document.querySelectorAll(".cart__product")).forEach(item => item.remove());
   let cartData = getCart();
   if (cartData !== null) {
-    
+      recycle.style.display = ""; 
       for (let item in cartData) {
     
           let currentId = item;
-          let currentSrc = cartData[item][1];
-          let currentCount = cartData[item][2];
+          let currentSrc = cartData[item].image;
+          let currentCount = cartData[item].count;
 
           let divText = `<div class="cart__product" data-id = ${currentId}><img class="cart__product-image" src=${currentSrc}><div class="cart__product-count">${currentCount}</div></div>`;
           cartProducts.insertAdjacentHTML("beforeEnd",divText); 
       };
-  };      
+  }
+  else recycle.style.display = "none";      
 return false;
 };
   
@@ -57,10 +59,10 @@ const clickAdd = (event) => {
       let cartData = getCart() || {}; 
         
         if (cartData.hasOwnProperty(id)) { 
-          cartData[id][2] = parseInt(cartData[id][2]) + count;
+          cartData[id].count = parseInt(cartData[id].count) + count;
         } 
         else { 
-          cartData[id] = [title, image, count];
+          cartData[id] = {title, image, count};
         }
      
       localStorage.removeItem('cart');
@@ -75,7 +77,7 @@ cartAdd.forEach(item => item.addEventListener('click', clickAdd));
 cartMinus.forEach(item => item.addEventListener('click', clickMinus));
 cartPlus.forEach(item => item.addEventListener('click', clickPlus));
 
-document.getElementById('clear_cart').addEventListener('click', function(event) {
+recycle.addEventListener('click', function(event) {
     localStorage.removeItem('cart');
     drawCarts();
 });
