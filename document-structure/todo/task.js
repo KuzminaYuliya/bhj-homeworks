@@ -43,7 +43,7 @@ const clickRemove = (event) => {
 
 button.addEventListener('click', function(event) {
     event.preventDefault();
-    if (inputField.value !== "" ) {
+    if (inputField.value.trim() !== "" ) {
         let taskData = getTasks() || [];
         
         taskData.push(inputField.value)
